@@ -23,3 +23,6 @@ pnpm-debug.log*
 *.sw?
 
 vue-admin.iml
+
+# database generaed by docker compose
+.dbdata/

@@ -7,6 +7,10 @@ npm install
 
 ### Compiles and hot-reloads for development
 ```
+docker-compose up  
+docker-compose exec backend sh 
+/app # ./start.sh
+
 npm run serve
 ```
 
