@@ -36,7 +36,7 @@ export default {
 
     const submit = async () => {
 
-      await axios.post("http://localhost:8000/api/register", {
+      await axios.post("register", {
         first_name: firstName.value,
         last_name: lastName.value,
         email: email.value,
