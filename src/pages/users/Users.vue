@@ -1,4 +1,9 @@
 <template>
+
+  <div class="pt-3 pb-2 mb-3 border-bottom">
+    <router-link to="/users/create" class="btn btn-sm btn-outline-secondary">Add</router-link>
+  </div>
+
   <div class="table-responsive">
     <table class="table table-striped table-sm">
       <thead>
@@ -40,6 +45,7 @@
 <script lang="ts">
 import {onMounted, ref, watch} from 'vue';
 import axios from "axios";
+import { User } from '@/models/user';
 
 export default {
   name: "Users",
