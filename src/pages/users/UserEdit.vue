@@ -28,10 +28,10 @@
 <script>
 import {onMounted, reactive, ref} from "vue";
 import axios from "axios";
-import {useRouter} from "vue-router";
+import {useRoute, useRouter} from "vue-router";
 
 export default {
-  name: "UserCreate",
+  name: "UserEdit",
   setup() {
     const data = reactive({
       first_name: '',
@@ -42,14 +42,22 @@ export default {
 
     const roles = ref([]);
     const router = useRouter();
+    const route = useRoute()
 
     onMounted(async () => {
-      const {data} = await axios.get('/roles');
-      roles.value = data;
+      const roleResponse = await axios.get('/roles');
+      roles.value = roleResponse.data;
+
+      const response = await axios.get(`/users/${route.params.id}`);
+
+      data.first_name = response.data.first_name;
+      data.last_name = response.data.last_name;
+      data.email = response.data.email;
+      data.role_id = response.data.role.id;
     });
 
     const submit = async () => {
-      await axios.post('/users', data);
+      await axios.put(`/users/${route.params.id}`, data);
       await router.push('/users');
     }
 

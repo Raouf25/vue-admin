@@ -23,6 +23,7 @@
         <td>{{ user.role.name }}</td>
         <td>
           <div>
+            <router-link :to="`/users/${user.id}/edit`" class="btn btn-sm btn-outline-secondary">Edit</router-link>
             <a href="javascript:void(0)" class="btn btn-sm btn-outline-secondary" @click="del(user.id)">Delete</a>
           </div>
         </td>
@@ -45,7 +46,7 @@
 <script lang="ts">
 import {onMounted, ref, watch} from 'vue';
 import axios from "axios";
-import { User } from '@/models/user';
+import {User} from '@/models/user';
 
 export default {
   name: "Users",
