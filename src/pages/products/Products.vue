@@ -21,7 +21,8 @@
         <td>{{ product.price }}</td>
         <td>
           <div>
-            <router-link :to="`/products/${product.id}/edit`" class="btn btn-sm btn-outline-secondary">Edit</router-link>
+            <router-link :to="`/products/${product.id}/edit`" class="btn btn-sm btn-outline-secondary">Edit
+            </router-link>
             <a href="javascript:void(0)" class="btn btn-sm btn-outline-secondary" @click="del(product.id)">Delete</a>
           </div>
         </td>
@@ -30,52 +31,30 @@
     </table>
   </div>
 
-  <nav>
-    <ul class="pagination">
-      <li class="page-item">
-        <a class="page-link" href="javascript:void(0)" @click="prev">Previous</a>
-      </li>
-      <li class="page-item">
-        <a class="page-link" href="javascript:void(0)" @click="next">Next</a>
-      </li>
-    </ul>
-  </nav>
+  <Paginator :last-page="lastPage" @page-changed="load($event)"/>
 
 </template>
 
 <script lang="ts">
-import {onMounted, ref, watch} from 'vue'
+import {onMounted, ref} from 'vue'
 import axios from 'axios'
-import { Product } from '@/models/product';
+import {Product} from '@/models/product';
+import Paginator from "@/components/Paginator.vue";
 
 export default {
   name: "products",
+  components: {Paginator},
   setup() {
     const products = ref([]);
-    const page = ref(1);
-    const last_page = ref(0);
+    const lastPage = ref(0);
 
-   const load = async () => {
-      const {data} = await axios.get(`products?page=${page.value}`);
+    const load = async (page = 1) => {
+      const {data} = await axios.get(`products?page=${page}`);
       products.value = data.data;
-      last_page.value = data.meta.last_page;
+      lastPage.value = data.meta.last_page;
     };
 
     onMounted(load);
-
-    watch(page, load)
-
-    const next = () => {
-      if (page.value < last_page.value) {
-        page.value++;
-      }
-    }
-
-    const prev = () => {
-      if (page.value > 1) {
-        page.value--;
-      }
-    }
 
     const del = async (id: number) => {
       if (confirm('Are you sure?')) {
@@ -86,9 +65,9 @@ export default {
 
     return {
       products,
-      del,
-      next,
-      prev
+      lastPage,
+      load,
+      del
     }
   }
 }

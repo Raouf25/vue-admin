@@ -9,7 +9,7 @@ import UserEdit from '@/pages/users/UserEdit.vue';
 import Roles from '@/pages/roles/Roles.vue';
 import RoleCreate from '@/pages/roles/RoleCreate.vue';
 import RoleEdit from '@/pages/roles/RoleEdit.vue';
-import Products from '@/pages/products/products.vue';
+import Products from '@/pages/products/Products.vue';
 
 const routes: Array<RouteRecordRaw> = [
 
